@@ -6,6 +6,7 @@ import com.capgemini.market.persistence.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +47,16 @@ public class ProductService {
     }
     public Long getCountProduct(){
         return  productRepository.getCountProduct();
+    }
+
+    public boolean updateProduct(String name, Integer productId){
+        return getProduct(productId).map(product -> {
+            productRepository.updateProductName(name, productId);
+            return  true;
+        }).orElse(false);
+    }
+
+    public Product update(Product product){
+        return productRepository.save(product);
     }
 }

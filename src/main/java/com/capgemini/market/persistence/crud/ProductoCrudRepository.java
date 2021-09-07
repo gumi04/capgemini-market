@@ -1,9 +1,12 @@
 package com.capgemini.market.persistence.crud;
 
 import com.capgemini.market.persistence.entity.Producto;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +20,9 @@ public interface ProductoCrudRepository extends CrudRepository<Producto,Integer>
     ///pude ser llenado o no
     Optional<List<Producto>> findByCantidadStockLessThanAndEstado(Integer cantidadStock,Boolean estado);
 
-    /*
-    //query nativo
-    @Query(value = "SELECT * FROM productos WHERE id_categoria = ? order by nombre desc",nativeQuery = true)
-    List<Producto>  findByCategory(Integer idCategoria);*/
+    //@Query(value = "SELECT * FROM productos WHERE id_categoria = ? order by nombre desc",nativeQuery = true)
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE productos set nombre = ? where id_producto = ?",nativeQuery = true)
+    void updateProduct(String nombre, Integer idProducto );
 }

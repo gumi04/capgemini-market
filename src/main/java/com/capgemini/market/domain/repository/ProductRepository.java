@@ -13,4 +13,6 @@ public interface ProductRepository {
     Product save(Product product);
     void delete(Integer productId);
     Long getCountProduct();
+    void updateProductName(String name,Integer productId);
+    Product update(Product product);
 }

@@ -1,6 +1,7 @@
 package com.capgemini.market.persistence.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Compra {
     @Column(name = "id_cliente")
     private String idCliente;
 
-    private Date fecha;
+    private LocalDateTime fecha;
 
     @Column(name = "medio_pago")
     private String medioPago;
@@ -30,7 +31,7 @@ public class Compra {
     @JoinColumn(name="id_cliente",insertable = false,updatable = false)
     private  Cliente cliente;
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto", cascade = {CascadeType.ALL})
     private List<ComprasProducto> productos;
 
     public Integer getIdCompra() {
@@ -49,11 +50,11 @@ public class Compra {
         this.idCliente = idCliente;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

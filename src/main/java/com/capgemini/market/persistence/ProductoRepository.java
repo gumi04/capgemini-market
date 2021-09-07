@@ -20,6 +20,7 @@ public class ProductoRepository implements ProductRepository {
     @Autowired
     private ProductMapper mapper;
 
+
     public List<Product> getAll(){
         List<Producto> productos = (List<Producto>) productoCrudRepository.findAll();
         return mapper.toProducts(productos);
@@ -56,6 +57,17 @@ public class ProductoRepository implements ProductRepository {
     @Override
     public Long getCountProduct() {
         return  productoCrudRepository.count();
+    }
+
+    @Override
+    public void updateProductName(String name,Integer productId) {
+        productoCrudRepository.updateProduct(name,productId);
+    }
+
+    @Override
+    public Product update(Product product) {
+        Producto producto= mapper.toProducto(product);
+        return mapper.toProduct(productoCrudRepository.save(producto));
     }
 
     //named Querys son personalizados

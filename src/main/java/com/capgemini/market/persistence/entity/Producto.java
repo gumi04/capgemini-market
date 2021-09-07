@@ -1,11 +1,15 @@
 package com.capgemini.market.persistence.entity;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 //le inidica que no es una clese normal que es de la base de datos
 //@table para mapear la tabla en la db
 @Entity
 @Table(name = "productos")
+//@DynamicUpdate
 public class Producto {
 
     @Id //indicamos la llaveprimaria
